@@ -5,7 +5,7 @@ class Board
   attr_reader :rows
 
   def initialize
-    @rows = Array.new(6, Array.new(7, Disc.new))
+    @rows = Array.new(6) { Array.new(7) { Disc.new } }
   end
 
   def to_s
