@@ -26,13 +26,61 @@ describe Game do
       expect(game.contains_four_same?(@discs)).to be true
     end
 
+  end
+
+  context "#game_over?" do
+
+    it "is false when board is empty" do
+      expect(game.game_over?).to be false
+    end
 
   end
 
-  context "when new" do
+  it "has welcome message" do
+    expect(game.welcome).to be_instance_of(String)
+  end
 
-    it "#game_over? is false" do
-      expect(game.game_over?).to be false
+  context "#get_input" do
+
+    it "accepts numbers in given range" do
+      allow_any_instance_of(Kernel).to receive(:gets).and_return "2"
+      expect( game.get_input(/2/)).to eql "2"
+    end
+
+    it "loops until correct input is given" do
+      allow($stdout).to receive(:write)
+      allow_any_instance_of(Kernel).to receive(:gets).and_return("a", "2")
+      #Thread.new do
+       # sleep(0.1)
+        #allow_any_instance_of(Kernel).to receive(:gets).and_return "2"
+      #end
+      expect(game.get_input(/2/)).to eql "2"
+    end
+
+  end
+
+  context "#create_player" do
+
+    before :each do
+      allow(game).to receive(:get_input).and_return "Name"
+    end
+
+    it "creates a new Player object" do
+      player= Player.new("Name", :red)
+      tested = game.create_player(:red)
+      expect(tested.name).to eql player.name
+      expect(tested.color).to eql player.color
+    end
+
+  end
+
+  context "#make_move" do
+
+    it "calls drop_disc? with given input" do
+      expect(game.board).to receive(:drop_disc?).with(1, :color).and_return true
+      allow(game).to receive(:get_input).and_return("1")
+      player = Player.new("Name", :color)
+      game.make_move(player)
     end
 
   end
