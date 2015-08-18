@@ -28,10 +28,10 @@ class Board
   end
 
   def to_s
-    divider = "\n" + "="*14 + "\n"
-    column_numbers = (1..7).to_a.join(" ")
+    divider = "\n" + "="*28 + "\n"
+    column_numbers = (1..7).to_a.join(" | ")
     joined = @rows.map do |row|
-      row.map { |disc| disc.to_s }.join(" ") 
+      row.map { |disc| disc.to_s }.join(" | ")
     end
     column_numbers + divider + joined.join(divider) + divider
   end
