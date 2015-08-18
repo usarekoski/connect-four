@@ -1,3 +1,5 @@
-require_relative 'connect-four/disc.rb'
-require_relative 'connect-four/board.rb'
-require_relative 'connect-four/game.rb'
+require_relative 'connect-four/disc'
+require_relative 'connect-four/board'
+require_relative 'connect-four/game'
+require_relative 'connect-four/player'
+
