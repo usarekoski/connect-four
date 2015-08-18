@@ -2,10 +2,29 @@ require_relative 'disc.rb'
 
 class Board
 
-  attr_reader :rows
+  attr_reader :rows, :by_column, :by_diagonal_lr, :by_diagonal_rl
 
   def initialize
     @rows = Array.new(6) { Array.new(7) { Disc.new } }
+    @by_column = (0..6).to_a.map do |x|
+      (0..5).to_a.map { |y| [y, x] }
+    end
+    @by_diagonal_rl =
+      (-6..6).to_a.map do |x|
+        (0..6).to_a.map { |y| [y, y + x] }
+      end.map do |x|
+        x.select do |coord|
+          coord.all? { |c| c >= 0 } && coord[0] <= 5 && coord[1] <= 6
+        end
+      end.select { |x| x.length >= 4 }
+    @by_diagonal_lr =
+      (0..12).to_a.reverse.map do |x|
+        (0..6).to_a.map { |y| [x - y, y] }
+      end.map do |x|
+        x.select do |coord|
+          coord.all? { |c| c >= 0 } && coord[0] <= 5 && coord[1] <= 6
+        end
+      end.select { |x| x.length >= 4 }
   end
 
   def to_s
