@@ -30,6 +30,7 @@ class Game
       make_move(player)
       if game_over?
         puts "Player #{player.name} has won!"
+        puts @board.to_s
         break
       end
       player = player == player1 ? player2 : player1
@@ -57,17 +58,19 @@ class Game
   end
 
   def game_over?
+
     def check(x)
       a = x.map do |row|
         row.map { |co| @board.rows[co[0]][co[1]] }
       end
       a.any? { |row| contains_four_same?(row) }
     end
+
     rows = @board.rows.any? { |row| contains_four_same?(row) }
     columns = check(@board.by_column)
     diagonals_lr = check(@board.by_diagonal_lr)
     diagonals_rl = check(@board.by_diagonal_rl)
-    rows && columns && diagonals_lr && diagonals_rl
+    rows || columns || diagonals_lr || diagonals_rl
   end
 
   def contains_four_same?(discs)

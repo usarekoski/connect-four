@@ -21,6 +21,15 @@ describe Board do
 
   end
 
+  context "coordinates" do
+
+    it "#by_column has one column in it" do
+      example_column = [[5,3], [4,3], [3,3], [2,3], [1,3], [0,3]].reverse
+      expect(board.by_column.find { |x| x == example_column }).to  eql example_column
+    end
+
+  end
+
   context "when disc is dropped" do
 
     it "disc is dropped by giving the column (1-7)" do

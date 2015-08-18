@@ -34,6 +34,11 @@ describe Game do
       expect(game.game_over?).to be false
     end
 
+    it "is true when there are 4 discs in a row" do
+      allow(game).to receive(:contains_four_same?).and_return(true, false, false, false)
+      expect(game.game_over?).to be true
+    end
+
   end
 
   it "has welcome message" do
